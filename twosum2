@@ -1,0 +1,37 @@
+## I really didn't like using the listnode instead of the python built in
+## It['s messier and slower because of that
+
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def addTwoNumbers(self, l1: ListNode | None, l2: ListNode | None) -> ListNode | None:
+        this = l1
+        that = l2
+        carry = 0
+        out = []
+        
+        while True:
+            if this.val == None and that.val == None and carry == 0:
+                break
+            calc = (0 if this.val == None else this.val) +  (0 if that.val == None else that.val) + carry
+            out.append(calc % 10)
+            carry = calc // 10
+            this = this.next
+            that = that.next
+            if this == None:
+                this = ListNode(None, None)
+            if that == None:
+                that = ListNode(None, None)
+
+        first = ListNode(out[0], None)
+        return_val = first
+        for i in out[1:]:
+            new_node = ListNode(i, None)
+            return_val.next = new_node
+            return_val = return_val.next
+
+        return first
+            
